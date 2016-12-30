@@ -1,0 +1,32 @@
+<?php
+/**
+ * @file
+ * Main file for the Kinopoisk rating module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function kp_rating_theme() {
+  return array(
+    'kp_formatter' => array(
+      'variables' => array(
+        'kp_vote'     => NULL,
+        'kp_rating'   => NULL,
+        'imdb_vote'   => NULL,
+        'imdb_rating' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Prepares variables for kp formatter templates.
+ */
+function kp_rating_preprocess_kp_formatter(&$variables) {
+  $kp_vote = intval($variables['kp_vote']);
+  $imdb_vote = intval($variables['imdb_vote']);
+
+  $variables['kp_vote'] = number_format($kp_vote, 0, ',', ' ');
+  $variables['imdb_vote'] = number_format($imdb_vote, 0, ',', ' ');
+}

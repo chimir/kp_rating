@@ -1,0 +1,6 @@
+name: Kinopoisk rating
+type: module
+description: 'Movie ratings on KinoPoisk and IMDb.'
+core: 8.x
+dependencies:
+  - field
