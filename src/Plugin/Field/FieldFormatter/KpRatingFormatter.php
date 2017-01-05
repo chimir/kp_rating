@@ -27,9 +27,18 @@ class KpRatingFormatter extends FormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $element = array();
 
+    $errno = NULL;
+    $errstr = '';
+    $is_available = @fsockopen('rating.kinopoisk.ru', 80, $errno, $errstr, 2);
+
+    if (!$is_available) {
+      return [];
+    }
+
     foreach ($items as $delta => $item) {
       $film_id = $item->value;
-      $xml_url = "http://rating.kinopoisk.ru/{$film_id}.xml";
+
+      $xml_url = "https://rating.kinopoisk.ru/{$film_id}.xml";
       $xml = simplexml_load_file($xml_url);
 
       $kp_vote = $xml->kp_rating['num_vote'];
